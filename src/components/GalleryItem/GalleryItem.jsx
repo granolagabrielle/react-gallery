@@ -1,11 +1,13 @@
-import Axios from 'axios';
+import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import { useState } from 'react';
 
 export default function GalleryItem({ fetchPhotos, photo }) {
+  const [toggle, setToggle] = useState(true);
   const likePhoto = (photoID) => {
-    Axios({
+    axios({
       method: 'PUT',
       url: `/api/gallery/like/${photoID}`,
     })
@@ -17,17 +19,39 @@ export default function GalleryItem({ fetchPhotos, photo }) {
       });
   };
 
+  const togglePhoto = (photoID) => {
+    console.log('clicked image');
+    setToggle(!toggle);
+  };
+
   return (
-    <Col>
-      <Card key={photo.id} className='photoCard'>
-        <Card.Body>
-          <Card.Title>{photo.title}</Card.Title>
-          <Card.Subtitle>{photo.description}</Card.Subtitle>
-          <Card.Img src={photo.url} style={{ width: '200px', height: 'auto' }} />
-          <Card.Text>{photo.likes} Likes</Card.Text>
-          <Button onClick={() => likePhoto(photo.id)}>🧡</Button>
-        </Card.Body>
-      </Card>
-    </Col>
+    <>
+      {!toggle ? (
+        <Col>
+          <Card>
+            <Card.Body onClick={() => togglePhoto(photo.id)}>
+              <Card.Subtitle>{photo.description}</Card.Subtitle>
+              <Card.Text>{photo.likes} Likes</Card.Text>
+              <Button onClick={() => likePhoto(photo.id)}>🧡</Button>
+            </Card.Body>
+          </Card>
+        </Col>
+      ) : (
+        <Col>
+          <Card key={photo.id} className='photoCard'>
+            <Card.Body>
+              <Card.Title>{photo.title}</Card.Title>
+              <Card.Img
+                onClick={() => togglePhoto(photo.id)}
+                src={photo.url}
+                style={{ width: '200px', height: 'auto' }}
+              />
+              <Card.Text>{photo.likes} Likes</Card.Text>
+              <Button onClick={() => likePhoto(photo.id)}>🧡</Button>
+            </Card.Body>
+          </Card>
+        </Col>
+      )}
+    </>
   );
 }

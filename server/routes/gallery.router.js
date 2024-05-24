@@ -18,6 +18,12 @@ router.put('/like/:id', (req, res) => {
     });
 });
 
+// PUT to toggle image
+// router.put('/toggle/:id', (req, res) => {
+//   const photoID = req.params.id;
+
+// })
+
 // GET /gallery
 router.get('/', (req, res) => {
   const sqlText = `SELECT * FROM gallery ORDER BY title ASC;`;
