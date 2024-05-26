@@ -28,26 +28,32 @@ export default function GalleryItem({ fetchPhotos, photo }) {
     <>
       {!toggle ? (
         <Col>
-          <Card>
-            <Card.Body onClick={() => togglePhoto(photo.id)}>
-              <Card.Subtitle>{photo.description}</Card.Subtitle>
+          <Card data-testid='galleryItem'>
+            <Card.Body data-testid='toggle' onClick={() => togglePhoto(photo.id)}>
+              <Card.Title>{photo.title}</Card.Title>
+              <Card.Subtitle data-testid='description'>{photo.description}</Card.Subtitle>
               <Card.Text>{photo.likes} Likes</Card.Text>
-              <Button onClick={() => likePhoto(photo.id)}>🧡</Button>
+              <Button data-testid='like' onClick={() => likePhoto(photo.id)}>
+                🧡
+              </Button>
             </Card.Body>
           </Card>
         </Col>
       ) : (
         <Col>
-          <Card key={photo.id} className='photoCard'>
+          <Card data-testid='galleryItem' key={photo.id} className='photoCard'>
             <Card.Body>
               <Card.Title>{photo.title}</Card.Title>
               <Card.Img
+                data-testid='toggle'
                 onClick={() => togglePhoto(photo.id)}
                 src={photo.url}
                 style={{ width: '200px', height: 'auto' }}
               />
               <Card.Text>{photo.likes} Likes</Card.Text>
-              <Button onClick={() => likePhoto(photo.id)}>🧡</Button>
+              <Button data-testid='like' onClick={() => likePhoto(photo.id)}>
+                🧡
+              </Button>
             </Card.Body>
           </Card>
         </Col>

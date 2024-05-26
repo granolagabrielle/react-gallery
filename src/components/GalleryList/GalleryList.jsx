@@ -5,7 +5,7 @@ export default function GalleryList({ galleryPhotos, fetchPhotos, setGalleryPhot
   console.log(galleryPhotos);
   return (
     <>
-      <h2>My Gallery</h2>
+      <h2 data-testid='galleryList'>My Gallery</h2>
       <Row xs='1' sm='2' md='3' lg='4'>
         {galleryPhotos.map((photo) => (
           <GalleryItem
